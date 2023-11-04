@@ -758,8 +758,17 @@ function Commands.run(opts)
             CurrentGenData.target.Configuration
         end
 
+        local engineDir = CurrentGenData.config.EngineDir
+        local editorExecutable = ""
+
+        if string.find(engineDir, "4.27") then
+            editorExecutable = "UE4Editor"
+        else
+            editorExecutable = "UnrealEditor"
+        end
+
         local executablePath = "\"".. CurrentGenData.config.EngineDir .. "/Engine/Binaries/" ..
-        CurrentGenData.target.PlatformName .. "/UnrealEditor" ..  editorSuffix .. ".exe\""
+        CurrentGenData.target.PlatformName .. "/" .. editorExecutable ..  editorSuffix .. ".exe\""
 
         cmd = executablePath .. " " ..
         CurrentGenData.projectPath .. " -skipcompile"
