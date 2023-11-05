@@ -142,27 +142,27 @@ Commands.onStatusUpdate = function()
 end
 
 function Commands:Inspect(objToInspect)
-    if not vim.g.unrealnvim_debug then return end
-    if not objToInspect then
-        log(objToInspect)
-        return
-    end
+    -- if not vim.g.unrealnvim_debug then return end
+    -- if not objToInspect then
+    --     log(objToInspect)
+    --     return
+    -- end
 
-    if not self._inspect then
-        local inspect_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/inspect.lua/inspect.lua"
-        self._inspect = loadfile(inspect_path)(Commands._inspect)
-        if  self._inspect then
-            log("Inspect loaded.")
-        else
-            logError("Inspect failed to load from path" .. inspect_path)
-        end
-        if self._inspect.inspect then
-            log("inspect method exists")
-        else
-            logError("inspect method doesn't exist")
-        end
-    end
-    return self._inspect.inspect(objToInspect)
+    -- if not self._inspect then
+    --     local inspect_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/inspect.lua/inspect.lua"
+    --     self._inspect = loadfile(inspect_path)(Commands._inspect)
+    --     if  self._inspect then
+    --         log("Inspect loaded.")
+    --     else
+    --         logError("Inspect failed to load from path" .. inspect_path)
+    --     end
+    --     if self._inspect.inspect then
+    --         log("inspect method exists")
+    --     else
+    --         logError("inspect method doesn't exist")
+    --     end
+    -- end
+    -- return self._inspect.inspect(objToInspect)
 end
 
 function SplitString(str)
@@ -645,7 +645,7 @@ function Commands.GetProjectName()
     return CurrentGenData.prjName .. ".uproject"
 end
 
-function InitializeCurrentGenData()
+function InitializeCuInitializeCurrentGenDatarrentGenData()
     PrintAndLogMessage("initializing")
     local current_file_path = vim.api.nvim_buf_get_name(0)
     CurrentGenData.prjName, CurrentGenData.prjDir = Commands._GetDefaultProjectNameAndDir(current_file_path)

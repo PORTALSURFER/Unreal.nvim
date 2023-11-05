@@ -8,7 +8,7 @@ if vim.g.loaded_unrealnvim == 1 then
 end
 vim.g.loaded_unrealnvim = 1
 
-
+-- [[Link Commands]]
 vim.api.nvim_create_user_command("UnrealGen", function(opts)
     require("unreal.commands").generateCommands(opts)
 end, {
