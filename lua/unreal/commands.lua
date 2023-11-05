@@ -645,7 +645,7 @@ function Commands.GetProjectName()
     return CurrentGenData.prjName .. ".uproject"
 end
 
-function InitializeCuInitializeCurrentGenDatarrentGenData()
+function InitializeCurrentGenData()
     PrintAndLogMessage("initializing")
     local current_file_path = vim.api.nvim_buf_get_name(0)
     CurrentGenData.prjName, CurrentGenData.prjDir = Commands._GetDefaultProjectNameAndDir(current_file_path)
