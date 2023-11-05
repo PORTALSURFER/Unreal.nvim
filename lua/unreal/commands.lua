@@ -434,7 +434,7 @@ function Stage_UbtGenCmd()
     coroutine.yield()
     Commands.BeginTask("gencmd")
     PrintAndLogMessage("callback called!")
-    local outputJsonPath = CurrentGenData.prjDir .. "/compile_commands.json"
+    local outputJsonPath = CurrentGenData.config.EngineDir .. "/compile_commands.json"
 
     local rspdir = CurrentGenData.prjDir .. "/Intermediate/clangRsp/" .. 
     CurrentGenData.target.PlatformName .. "/".. 
@@ -662,7 +662,9 @@ function InitializeCurrentGenData()
         return false
     end
 
-    CurrentGenData.ubtPath = "\"" .. CurrentGenData.config.EngineDir .."/Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe\""
+    -- Ue4 fix
+    -- CurrentGenData.ubtPath = "\"" .. CurrentGenData.config.EngineDir .."/Engine/Binaries/DotNET/UnrealBuildTool.exe\""
+    CurrentGenData.ubtPath = "\"" .. CurrentGenData.config.EngineDir .."/Engine/Binaries/DotNET/UnrealBuildTool.exe\""
     CurrentGenData.ueBuildBat = "\"" .. CurrentGenData.config.EngineDir .."/Engine/Build/BatchFiles/Build.bat\""
     CurrentGenData.projectPath = "\"" .. CurrentGenData.prjDir .. "/" .. 
         CurrentGenData.prjName .. ".uproject\""
@@ -809,7 +811,7 @@ function Commands.EnsureUpdateStarted()
 end
 
 function Commands.generateCommands(opts)
-    log(Commands.Inspect(opts))
+    -- log(Commands.Inspect(opts))
 
     if not InitializeCurrentGenData() then
         PrintAndLogMessage("init failed")
