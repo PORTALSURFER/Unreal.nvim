@@ -434,7 +434,7 @@ function Stage_UbtGenCmd()
     coroutine.yield()
     Commands.BeginTask("gencmd")
     PrintAndLogMessage("callback called!")
-    local outputJsonPath = CurrentGenData.config.EngineDir .. "/compile_commands.json"
+    local outputJsonPath = CurrentGenData.config.EngineDir .. "/compile_commandssss.json"
 
     local rspdir = CurrentGenData.prjDir .. "/Intermediate/clangRsp/" .. 
     CurrentGenData.target.PlatformName .. "/".. 
@@ -942,7 +942,7 @@ function Commands.generateCommandsCoroutine()
 
     PrintAndLogMessage("Dispatching command:")
     PrintAndLogMessage(cmd)
-    CurrentCompileCommandsTargetFilePath =  CurrentGenData.prjDir .. "/compile_commandsssss.json"
+    CurrentCompileCommandsTargetFilePath =  CurrentGenData.prjDir .. "/compile_commands.json"
     vim.api.nvim_command("Dispatch " .. cmd)
     PrintAndLogMessage("Dispatched")
 end
