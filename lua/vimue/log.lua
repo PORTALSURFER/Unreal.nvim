@@ -28,6 +28,7 @@ end
 -- helper functions
 function mod.error(message)
     mod.log(mod.levels.ERROR, message)
+    error(mod.levels.ERROR, message)
 end
 
 function mod.warning(message)
@@ -37,5 +38,10 @@ end
 function mod.info(message)
     mod.log(mod.levels.INFO, message)
 end 
+
+function mod.pinfo(message)
+    print(message)
+    mod.info(message)
+end
 
 return mod

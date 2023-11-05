@@ -21,63 +21,63 @@ if not vim then
 end
 
 
-local logFilePath = vim.fn.stdpath("data") .. '/unrealnvim.log'
+-- local logFilePath = vim.fn.stdpath("data") .. '/unrealnvim.log'
 
-local function logWithVerbosity(verbosity, message)
-    if not vim.g.unrealnvim_debug then return end
-    local cfgVerbosity = kLogLevel_Log
-    if vim.g.unrealnvim_loglevel then
-        cfgVerbosity = vim.g.unrealnvim_loglevel
-    end
-    if verbosity > cfgVerbosity then return end
+-- local function logWithVerbosity(verbosity, message)
+--     if not vim.g.unrealnvim_debug then return end
+--     local cfgVerbosity = kLogLevel_Log
+--     if vim.g.unrealnvim_loglevel then
+--         cfgVerbosity = vim.g.unrealnvim_loglevel
+--     end
+--     if verbosity > cfgVerbosity then return end
 
-    local file = nil
-    if Commands.logFile then
-        file = Commands.logFile
-    else
-        file = io.open(logFilePath, "a")
-    end
+--     local file = nil
+--     if Commands.logFile then
+--         file = Commands.logFile
+--     else
+--         file = io.open(logFilePath, "a")
+--     end
 
-    if file then
-        local time = os.date('%m/%d/%y %H:%M:%S');
-        file:write("["..time .. "]["..verbosity.."]: " .. message .. '\n')
-    else
-        print("UnrealNvim: failed to open log file.")
-    end
-end
+--     if file then
+--         local time = os.date('%m/%d/%y %H:%M:%S');
+--         file:write("["..time .. "]["..verbosity.."]: " .. message .. '\n')
+--     else
+--         print("UnrealNvim: failed to open log file.")
+--     end
+-- end
 
-local function log(message)
-    if not message then
-        logWithVerbosity(kLogLevel_Error, "message was nill")
-        return
-    end
+-- local function log(message)
+--     if not message then
+--         logWithVerbosity(kLogLevel_Error, "message was nill")
+--         return
+--     end
 
-    logWithVerbosity(kLogLevel_Log, message)
-end
+--     logWithVerbosity(kLogLevel_Log, message)
+-- end
 
-local function logError(message)
-    logWithVerbosity(kLogLevel_Error, message)
-end
+-- local function logError(message)
+--     logWithVerbosity(kLogLevel_Error, message)
+-- end
 
-local function PrintAndLogMessage(a,b)
-    if a and b then
-        log(tostring(a)..tostring(b))
-    elseif a then
-        log(tostring(a))
-    end
-end
+-- local function PrintAndLogMessage(a,b)
+--     if a and b then
+--         log(tostring(a)..tostring(b))
+--     elseif a then
+--         log(tostring(a))
+--     end
+-- end
 
-local function PrintAndLogError(a,b)
-    if a and b then
-        local msg = "Error: "..tostring(a)..tostring(b)
-        print(msg)
-        log(msg)
-    elseif a then
-        local msg = "Error: ".. tostring(a)
-        print(msg)
-        log(msg)
-    end
-end
+-- local function PrintAndLogError(a,b)
+--     if a and b then
+--         local msg = "Error: "..tostring(a)..tostring(b)
+--         print(msg)
+--         log(msg)
+--     elseif a then
+--         local msg = "Error: ".. tostring(a)
+--         print(msg)
+--         log(msg)
+--     end
+-- end
 
 local function MakeUnixPath(win_path)
     if not win_path then
@@ -141,29 +141,29 @@ end
 Commands.onStatusUpdate = function()
 end
 
-function Commands:Inspect(objToInspect)
-    -- if not vim.g.unrealnvim_debug then return end
-    -- if not objToInspect then
-    --     log(objToInspect)
-    --     return
-    -- end
+-- function Commands:Inspect(objToInspect)
+--     -- if not vim.g.unrealnvim_debug then return end
+--     -- if not objToInspect then
+--     --     log(objToInspect)
+--     --     return
+--     -- end
 
-    -- if not self._inspect then
-    --     local inspect_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/inspect.lua/inspect.lua"
-    --     self._inspect = loadfile(inspect_path)(Commands._inspect)
-    --     if  self._inspect then
-    --         log("Inspect loaded.")
-    --     else
-    --         logError("Inspect failed to load from path" .. inspect_path)
-    --     end
-    --     if self._inspect.inspect then
-    --         log("inspect method exists")
-    --     else
-    --         logError("inspect method doesn't exist")
-    --     end
-    -- end
-    -- return self._inspect.inspect(objToInspect)
-end
+--     -- if not self._inspect then
+--     --     local inspect_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/inspect.lua/inspect.lua"
+--     --     self._inspect = loadfile(inspect_path)(Commands._inspect)
+--     --     if  self._inspect then
+--     --         log("Inspect loaded.")
+--     --     else
+--     --         logError("Inspect failed to load from path" .. inspect_path)
+--     --     end
+--     --     if self._inspect.inspect then
+--     --         log("inspect method exists")
+--     --     else
+--     --         logError("inspect method doesn't exist")
+--     --     end
+--     -- end
+--     -- return self._inspect.inspect(objToInspect)
+-- end
 
 function SplitString(str)
     -- Split a string into lines
