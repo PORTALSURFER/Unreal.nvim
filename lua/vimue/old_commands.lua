@@ -1,5 +1,4 @@
 
-local kConfigFileName = "UnrealNvim.json"
 local kCurrentVersion = "0.0.2"
 
 local kLogLevel_Error = 1
@@ -15,83 +14,7 @@ local TaskState =
     completed = "completed"
 }
 
--- fix false diagnostic about vim
-if not vim then
-    vim = {}
-end
 
-
--- local logFilePath = vim.fn.stdpath("data") .. '/unrealnvim.log'
-
--- local function logWithVerbosity(verbosity, message)
---     if not vim.g.unrealnvim_debug then return end
---     local cfgVerbosity = kLogLevel_Log
---     if vim.g.unrealnvim_loglevel then
---         cfgVerbosity = vim.g.unrealnvim_loglevel
---     end
---     if verbosity > cfgVerbosity then return end
-
---     local file = nil
---     if Commands.logFile then
---         file = Commands.logFile
---     else
---         file = io.open(logFilePath, "a")
---     end
-
---     if file then
---         local time = os.date('%m/%d/%y %H:%M:%S');
---         file:write("["..time .. "]["..verbosity.."]: " .. message .. '\n')
---     else
---         print("UnrealNvim: failed to open log file.")
---     end
--- end
-
--- local function log(message)
---     if not message then
---         logWithVerbosity(kLogLevel_Error, "message was nill")
---         return
---     end
-
---     logWithVerbosity(kLogLevel_Log, message)
--- end
-
--- local function logError(message)
---     logWithVerbosity(kLogLevel_Error, message)
--- end
-
--- local function PrintAndLogMessage(a,b)
---     if a and b then
---         log(tostring(a)..tostring(b))
---     elseif a then
---         log(tostring(a))
---     end
--- end
-
--- local function PrintAndLogError(a,b)
---     if a and b then
---         local msg = "Error: "..tostring(a)..tostring(b)
---         print(msg)
---         log(msg)
---     elseif a then
---         local msg = "Error: ".. tostring(a)
---         print(msg)
---         log(msg)
---     end
--- end
-
-local function MakeUnixPath(win_path)
-    if not win_path then
-        logError("MakeUnixPath received a nil argument")
-        return;
-    end
-    -- Convert backslashes to forward slashes
-    local unix_path = win_path:gsub("\\", "/")
-
-    -- Remove duplicate slashes
-    unix_path = unix_path:gsub("//+", "/")
-
-    return unix_path
-end
 
 local function FuncBind(func, data)
     return function()
@@ -802,7 +725,7 @@ function Commands.generateCommands(opts)
     PrintAndLogMessage("compiler set to msvc")
 
     Commands.taskCoroutine = coroutine.create(Commands.generateCommandsCoroutine)
-    Commands.EnsureUpdateStarted()
+    Commands.EnsureUpdateeStarted()
 end
 
 
@@ -812,12 +735,7 @@ function Commands.updateLoop()
     Commands.lastUpdateTime = vim.loop.now()
 end
 
-function Commands.safeUpdateLoop()
-    local success, errmsg = pcall(Commands.updateLoop)
-    if not success then
-        vim.api.nvim_err_writeln("Error in update:".. errmsg)
-    end
-end
+
 
 local gtimer = 0
 local resetCount = 0
@@ -948,25 +866,3 @@ function Commands._check_extension_in_directory(directory, extension)
     return nil
 end
 
-function Commands._find_file_with_extension(filepath, extension)
-    local current_dir = vim.fn.fnamemodify(filepath, ":h")
-    local parent_dir = vim.fn.fnamemodify(current_dir, ":h")
-    -- Check if the file exists in the current directory
-    local filename = vim.fn.fnamemodify(filepath, ":t")
-
-    local full_path = Commands._check_extension_in_directory(current_dir, extension)
-    if full_path then
-        return current_dir, full_path
-    end
-
-    -- Recursively check parent directories until we find the file or reach the root directory
-    if current_dir ~= parent_dir then
-        return Commands._find_file_with_extension(parent_dir .. "/" .. filename, extension)
-    end
-
-    -- File not found
-    return nil
-end
-
-
-return Commands

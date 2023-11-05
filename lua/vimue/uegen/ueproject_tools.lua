@@ -28,15 +28,15 @@ end
 function mod.get_project_name(uproject_file_path)
 	log.info("Getting name of the currently opened ue project")
 	local uproject_name = vim.fn.fnamemodify(uproject_file_path, ":t:r")
-
 	log.info("Found uproject file: " .. uproject_name)
 	return uproject_name
 end
 
 function mod.get_project_directory(uproject_file_path)
 	log.info("Getting directory of the currently opened ue project")
-    local uproject_directory = vim.fn.fnamemodify(uproject_file_path, ":p:h")
-	return uproject_directory
+    local project_directory = vim.fn.fnamemodify(uproject_file_path, ":p:h")
+	log.info("Found project directory: " .. project_directory)
+	return project_directory
 end
 
 return mod
