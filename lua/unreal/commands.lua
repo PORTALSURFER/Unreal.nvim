@@ -8,9 +8,6 @@ local kLogLevel_Log = 3
 local kLogLevel_Verbose = 4
 local kLogLevel_VeryVerbose = 5
 
--- TaskState is an enumeration of the possible states of a task. 
--- It can be one of: scheduled, inprogress, completed
-
 local TaskState =
 {
     scheduled = "scheduled",
@@ -23,9 +20,9 @@ if not vim then
     vim = {}
 end
 
+
 local logFilePath = vim.fn.stdpath("data") .. '/unrealnvim.log'
 
--- Function to log a message. Verbosity is a value between 0 and 4, with 0 being the highest priority and 4 being the lowest.
 local function logWithVerbosity(verbosity, message)
     if not vim.g.unrealnvim_debug then return end
     local cfgVerbosity = kLogLevel_Log
@@ -49,42 +46,9 @@ local function logWithVerbosity(verbosity, message)
     end
 end
 
--- This is a log function that sends a message to the log.
--- It will log with log level kLogLevel_Log
--- If the message is empty, it will log with log level kLogLevel_Error.
--- It will not log if the message is nil.
-function log(message)
-    if not message then
-        logWithVerbosity(kLogLevel_Error, "message was nill")
-        return
-    end
-
-    if type(message) ~= "string" then
-        logWithVerbosity(kLogLevel_Error, "message was not a string")
-        return
-    end
-
-    if #message == 0 then
-        logWithVerbosity(kLogLevel_Error, "message was an empty string")
-        return
-    end
-
-    logWithVerbosity(kLogLevel_Log, message)
-end
-
 local function log(message)
     if not message then
         logWithVerbosity(kLogLevel_Error, "message was nill")
-        return
-    end
-
-    if type(message) ~= "string" then
-        logWithVerbosity(kLogLevel_Error, "message was not a string")
-        return
-    end
-
-    if #message == 0 then
-        logWithVerbosity(kLogLevel_Error, "message was an empty string")
         return
     end
 
@@ -115,11 +79,6 @@ local function PrintAndLogError(a,b)
     end
 end
 
--- This function converts a Windows file path to a Unix-style file path.
--- It removes drive letters, UNC server prefixes, and converts backslashes
--- to forward slashes. It also removes duplicate slashes and removes
--- trailing slashes.
-
 local function MakeUnixPath(win_path)
     if not win_path then
         logError("MakeUnixPath received a nil argument")
@@ -131,15 +90,6 @@ local function MakeUnixPath(win_path)
     -- Remove duplicate slashes
     unix_path = unix_path:gsub("//+", "/")
 
-    -- Remove trailing slash
-    unix_path = unix_path:gsub("/$", "")
-
-    -- Remove drive letter
-    unix_path = unix_path:gsub("^[A-Za-z]:", "")
-
-    -- Remove UNC server prefix
-    unix_path = unix_path:gsub("^//[^/]+", "")
-
     return unix_path
 end
 
@@ -148,12 +98,6 @@ local function FuncBind(func, data)
         func(data)
     end
 end
-
--- This function does something important. It takes a string and returns a string.
-function importantFunction(str)
-    return str
-end
-
 
 if not vim.g.unrealnvim_loaded then
     Commands = {}
@@ -181,34 +125,7 @@ if not vim.g.unrealnvim_loaded then
 
         CurrentGenData.logFile = io.open(logFilePath, "a")
     end
-
-    -- If the log file could not be opened, then something is seriously wrong.
-    -- Abort the script.
-    if not CurrentGenData.logFile then
-        error("Could not open log file.")
-        return
-    end
-
-    -- If the log file is already open, then something is seriously wrong.
-    -- Abort the script.
-    if CurrentGenData.logFile then
-        error("Log file is already open.")
-        return
-    end
-
-    -- If the log file is not a valid file, then something is seriously wrong.
-    -- Abort the script.
-    if not vim.fn.filereadable(logFilePath) then
-        error("Log file is not valid.")
-        return
-    end
-
-    -- If the log file is empty, then something is seriously wrong.
-    -- Abort the script.
-    if vim.fn.getfsize(logFilePath) == 0 then
-        error("Log file is empty.")
-        return
-    end
+vim.g.unrealnvim_loaded = true
 end
 
 Commands.LogLevel_Error = kLogLevel_Error
