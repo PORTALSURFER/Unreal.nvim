@@ -942,7 +942,7 @@ function Commands.generateCommandsCoroutine()
 
     PrintAndLogMessage("Dispatching command:")
     PrintAndLogMessage(cmd)
-    CurrentCompileCommandsTargetFilePath =  CurrentGenData.prjDir .. "/compile_commands.json"
+    CurrentCompileCommandsTargetFilePath =  CurrentGenData.prjDir .. "/compile_commandsssss.json"
     vim.api.nvim_command("Dispatch " .. cmd)
     PrintAndLogMessage("Dispatched")
 end
