@@ -1,11 +1,6 @@
-init = require("init")
+local init = require("vimue.init")
 
-init.checks()
-
--- if vim.g.loaded_unrealnvim == 1 then
---   return
--- end
--- vim.g.loaded_unrealnvim = 1
+init.run()
 
 -- -- [[Link Commands]]
 -- vim.api.nvim_create_user_command("UnrealGen", function(opts)
