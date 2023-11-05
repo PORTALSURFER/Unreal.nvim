@@ -28,11 +28,14 @@ end
 -- helper functions
 function mod.error(message)
     mod.log(mod.levels.ERROR, message)
-    error(mod.levels.ERROR, message)
+    vim.api.nvim_err_writeln("Error: " .. message)
+    error()
 end
 
-function mod.warning(message)
+function mod.warn(message)
     mod.log(mod.levels.WARNING, message)
+    vim.api.nvim_err_writeln("Warning: " .. message)
+    error()
 end
 
 function mod.info(message)
@@ -40,7 +43,7 @@ function mod.info(message)
 end 
 
 function mod.pinfo(message)
-    print(message)
+    vim.api.nvim_out_write(message)
     mod.info(message)
 end
 

@@ -141,39 +141,6 @@ end
 Commands.onStatusUpdate = function()
 end
 
--- function Commands:Inspect(objToInspect)
---     -- if not vim.g.unrealnvim_debug then return end
---     -- if not objToInspect then
---     --     log(objToInspect)
---     --     return
---     -- end
-
---     -- if not self._inspect then
---     --     local inspect_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/inspect.lua/inspect.lua"
---     --     self._inspect = loadfile(inspect_path)(Commands._inspect)
---     --     if  self._inspect then
---     --         log("Inspect loaded.")
---     --     else
---     --         logError("Inspect failed to load from path" .. inspect_path)
---     --     end
---     --     if self._inspect.inspect then
---     --         log("inspect method exists")
---     --     else
---     --         logError("inspect method doesn't exist")
---     --     end
---     -- end
---     -- return self._inspect.inspect(objToInspect)
--- end
-
-function SplitString(str)
-    -- Split a string into lines
-    local lines = {}
-    for line in string.gmatch(str, "[^\r\n]+") do
-        table.insert(lines, line)
-    end
-    return lines
-end
-
 function Commands._CreateConfigFile(configFilePath, projectName)
     local configContents = [[
 {

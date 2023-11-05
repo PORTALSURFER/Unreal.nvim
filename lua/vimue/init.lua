@@ -14,7 +14,7 @@ function mod.checks()
 
 	log.info("Initializing vimue")
 
-	if 1 ~= vim.fn.has("nvim-0.10.0") then
+	if 1 ~= vim.fn.has("nvim-0.7.0") then
 		vim.api.nvim_err_writeln("vimue.nvim requires at least nvim-0.7.0")
 		log.error("vimue.nvim requires at least nvim-0.7.0")
 		return
