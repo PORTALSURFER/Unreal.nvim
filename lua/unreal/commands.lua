@@ -434,7 +434,7 @@ function Stage_UbtGenCmd()
     coroutine.yield()
     Commands.BeginTask("gencmd")
     PrintAndLogMessage("callback called!")
-    local outputJsonPath = CurrentGenData.config.EngineDir .. "/compile_commandssss.json"
+    local outputJsonPath = CurrentGenData.config.prjDir .. "/compile_commands.json"
 
     local rspdir = CurrentGenData.prjDir .. "/Intermediate/clangRsp/" .. 
     CurrentGenData.target.PlatformName .. "/".. 
